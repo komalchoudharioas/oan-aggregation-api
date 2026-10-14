@@ -87,6 +87,20 @@ class Settings(BaseSettings):
     auth_audience: str = ""
     auth_algorithms: list[str] = ["RS256", "ES256", "EdDSA"]
     subject_default_id_type: str = "national_id"
+    # The farmer token: the CM beneficiary API logs a farmer in with Fayda /
+    # eSignet and issues its own JWT (subject_id_value = national ID), signed
+    # with the CM key. When subject_auth_issuer is set, the subject routes
+    # (status, verify-otp) also accept that token, verified with the CM
+    # beneficiary API's JWKS (<bene api>/.well-known/jwks.json). Staff routes
+    # never do. Unset = only the auth_* realm, as before.
+    subject_auth_issuer: str = ""
+    subject_auth_jwks_url: str = ""
+    subject_auth_audience: str = "coss-beneficiary"
+    subject_auth_algorithms: list[str] = ["EdDSA", "ES256", "RS256", "PS256"]
+    # True = the subject routes take ONLY the farmer token; a staff-realm user
+    # can no longer stand in for a farmer (production, once farmers log in
+    # with Fayda).
+    subject_auth_required: bool = False
 
     # ── Registry catalog ────────────────────────────────────────────────────
     # The YAML file that lists every registry this service may query: where

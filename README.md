@@ -316,7 +316,9 @@ Every setting is `AGGREGATION_LAYER_<NAME>`; the full list with comments is
 | `AGGREGATOR_SENDER_ID`, `AGGREGATOR_ISSUER` | DCI `sender_id` / consent `iss` on registry hops. `sender_id` must map to the PM partner (`PARTNER_<SENDER_ID>`). |
 | `CM_BASE_URL`, `CM_TOKEN_URL`, `CM_CLIENT_ID`, `CM_CLIENT_SECRET` | The Consent Manager and the client-credentials login to it. |
 | `CM_POLL_INTERVAL_SEC`, `CM_POLL_IN_APP` | How consent decisions are read back from the CM. |
-| `AUTH_ENABLED`, `AUTH_ISSUER`, `AUTH_JWKS_URL`, `AUTH_AUDIENCE` | Verification of the subject's bearer token. |
+| `AUTH_ENABLED`, `AUTH_ISSUER`, `AUTH_JWKS_URL`, `AUTH_AUDIENCE` | Verification of the subject's bearer token (Keycloak realm). |
+| `SUBJECT_AUTH_ISSUER`, `SUBJECT_AUTH_JWKS_URL`, `SUBJECT_AUTH_AUDIENCE` | The farmer token issued by the CM beneficiary API after a Fayda / eSignet login (`subject_id_value` = national ID), accepted on the subject routes (`GET /requests/{id}`, `verify-otp`) only, verified with the CM beneficiary JWKS (`<bene api>/.well-known/jwks.json`). Unset = off. |
+| `SUBJECT_AUTH_REQUIRED` | `true`: the subject routes accept only the farmer token, so a staff-realm user can no longer act as a farmer. Default `false`. |
 | `OTP_PROVIDER`, `OTP_SALT`, `OTP_TTL_SEC`, `OTP_MAX_ATTEMPTS` | OTP behaviour. |
 | `OTP_DEBUG_ENABLED` | **Development only**, default `false`: keeps the plaintext OTP and exposes it on an endpoint. |
 | `AGGREGATOR_REGISTRY_TIMEOUT`, `AGGREGATOR_PAGE_SIZE` | Defaults for registry hops (a catalog entry may override). |
